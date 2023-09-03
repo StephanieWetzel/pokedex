@@ -1,0 +1,142 @@
+ body {
+     margin: 0;
+     font-family: 'Rubik';
+     font-size: 20px;
+ }
+
+ h1 {
+     margin-bottom: 16px;
+ }
+
+ /* onePokemon - START */
+ .nameContainer {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+ }
+
+ #pokemonId {
+     font-size: 32px;
+ }
+
+ #pokedex {
+     display: flex;
+     min-height: 50vh;
+     background-color: #FB6C6C;
+     color: white;
+     padding: 64px 32px;
+ }
+
+ .infoContainer {
+     display: flex;
+     flex-direction: column;
+     background-color: white;
+     margin-top: -100px;
+     min-height: 200px;
+     border-top-left-radius: 40px;
+     border-top-right-radius: 40px;
+ }
+
+ .symbolsContainer {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+ }
+
+ .symbolsContainer img {
+     width: 32px;
+ }
+
+ .symbolsContainer img:hover {
+     cursor: pointer;
+     transform: scale(1.4);
+ }
+
+ #pokemonType {
+     font-size: 16px;
+     background-color: #F88E8D;
+     padding: 4px 24px;
+     border-radius: 16px;
+ }
+
+ .pokemonImageContainer {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+
+ #pokemonImage {
+     width: 368px;
+     margin-top: -312px;
+ }
+
+ .statsHeader {
+     display: flex;
+     align-items: center;
+     justify-content: space-evenly;
+ }
+
+ .statsHeader span {
+     color: #C3C4C8;
+     border-bottom: solid;
+     padding-bottom: 32px;
+ }
+
+ .statsHeader span:hover {
+     cursor: pointer;
+     color: black;
+ }
+
+ .statsContent {
+     display: flex;
+     gap: 80px;
+     margin-bottom: 32px;
+ }
+
+ .statsContentProperties {
+     display: flex;
+     flex-direction: column;
+     color: #AEB3B6;
+     gap: 16px;
+ }
+
+ .statsContentValues {
+     display: flex;
+     flex-direction: column;
+     gap: 16px;
+ }
+
+ /* onePokemon - END */
+
+
+ /* allPokemon - START */
+ .pokemonCard {
+     display: inline-block;
+     height: 200px;
+     width: 300px;
+     margin: 24px;
+     padding: 16px;
+     border-radius: 16px;
+     background-color: crimson;
+     color: white;
+ }
+
+ /* allPokemon - END */
+
+
+ /* generic classes: */
+ .capitalLetters {
+     text-transform: capitalize;
+ }
+
+ .fullWidth {
+     width: 100vw;
+ }
+
+ .invertWhite {
+     filter: invert(1);
+ }
+
+ .padding32 {
+     padding: 32px;
+ }
