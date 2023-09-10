@@ -7,6 +7,7 @@
      background-repeat: no-repeat;
      background-size: cover;
      background-attachment: fixed;
+     /* overflow: hidden; */
  }
 
  .headerContainer {
@@ -65,121 +66,49 @@
  }
 
  /* scrollbar - START */
- /* width */
  ::-webkit-scrollbar {
      width: 20px;
      cursor: pointer;
  }
 
- /* Track */
  ::-webkit-scrollbar-track {
      background: #f1f1f1;
+     border-radius: 10px;
+     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
  }
 
- /* Handle */
  ::-webkit-scrollbar-thumb {
-     background: url(./img/scrollbar_thumb.png);
-     background-repeat: no-repeat;
+     background: url(./img/scrollbar_thumb.png) no-repeat;
      background-size: contain;
-
  }
 
- /* scrollbar - START */
-
- /* h1 {
-     margin-bottom: 16px;
- } */
-
- /* onePokemon - START */
- #pokemonId {
-     font-size: 32px;
+ ::after,
+ ::before {
+     box-sizing: border-box;
  }
 
- #pokedex {
-     display: flex;
-     min-height: 50vh;
-     background-color: #FB6C6C;
-     color: white;
-     padding: 64px 32px;
- }
+ /* scrollbar - END */
 
- .infoContainer {
-     display: flex;
-     flex-direction: column;
-     background-color: white;
-     margin-top: -100px;
-     min-height: 200px;
-     border-top-left-radius: 40px;
-     border-top-right-radius: 40px;
- }
-
- .symbolsContainer img {
-     width: 32px;
- }
-
- .symbolsContainer img:hover {
-     cursor: pointer;
-     transform: scale(1.4);
- }
-
- #pokemonType {
-     font-size: 16px;
-     background-color: #F88E8D;
-     padding: 4px 24px;
-     border-radius: 16px;
- }
-
- .pokemonImageContainer {
-     display: flex;
-     justify-content: center;
-     align-items: center;
- }
-
- #pokemonImage {
-     width: 368px;
-     margin-top: -312px;
- }
-
- .statsHeader {
-     display: flex;
-     align-items: center;
-     justify-content: space-evenly;
- }
-
- .statsHeader span {
-     color: #C3C4C8;
-     border-bottom: solid;
-     padding-bottom: 32px;
- }
-
- .statsHeader span:hover {
-     cursor: pointer;
-     color: black;
- }
-
- .statsContent {
-     display: flex;
-     gap: 80px;
-     margin-bottom: 32px;
- }
-
- .statsContentProperties {
-     display: flex;
-     flex-direction: column;
-     color: #AEB3B6;
-     gap: 16px;
- }
-
- .statsContentValues {
-     display: flex;
-     flex-direction: column;
-     gap: 16px;
- }
-
- /* onePokemon - END */
 
 
  /* mainContent - START */
+ .rootDiv {
+     position: relative;
+     height: 100%;
+     width: 100%;
+ }
+
+ .overlayDiv {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     position: fixed;
+     height: 100%;
+     width: 100%;
+     z-index: 999;
+     background-color: rgba(0, 0, 0, 0.8);
+ }
+
  #mainContent {
      display: flex;
      justify-content: center;
@@ -187,24 +116,26 @@
  }
 
  .pokemonCard {
-     height: 248px;
+     /* height: 248px; */
      width: 320px;
      margin: 16px;
      padding: 16px 32px;
      border-radius: 32px;
      color: white;
      border: solid;
+     opacity: 0.9;
  }
 
  .pokemonCard:hover {
      cursor: pointer;
      transform: scale(1.2) rotate(-5deg);
      transition: 600ms;
+     opacity: 1;
  }
 
  .typesAndImageContainer {
      display: flex;
-     margin-top: 56px;
+     margin-top: 80px;
      gap: 40px;
  }
 
@@ -232,7 +163,90 @@
      filter: drop-shadow(2px 4px 6px black);
  }
 
- /* allPokemon - END */
+ /* mainContent - END */
+
+
+ /* overlay - START */
+ .pokemonInfoCard {
+     position: fixed;
+     z-index: 999;
+     /* height: 800px; */
+     width: 456px;
+     border-radius: 40px;
+     color: white;
+     border: solid;
+ }
+
+ .infoContainer {
+     display: flex;
+     flex-direction: column;
+     background-color: white;
+     border-radius: 32px;
+     margin-top: 168px;
+ }
+
+ .symbolsContainer img {
+     width: 32px;
+ }
+
+ .symbolsContainer img:hover {
+     cursor: pointer;
+     transform: scale(1.4);
+ }
+
+ .InfoImageContainer {
+     display: flex;
+     justify-content: center;
+     margin-top: -200px;
+     margin-bottom: 8px;
+ }
+
+ .InfoImageContainer img {
+     width: 240px;
+     filter: drop-shadow(2px 4px 6px black);
+ }
+
+ .statsHeader {
+     display: flex;
+     align-items: center;
+     justify-content: space-evenly;
+ }
+
+ .statsHeader span {
+     color: #C3C4C8;
+     border-bottom: solid;
+ }
+
+ .statsHeader span:hover {
+     cursor: pointer;
+     color: black;
+ }
+
+ .statsContent {
+     display: flex;
+     gap: 80px;
+ }
+
+ .statsContentProperties {
+     display: flex;
+     flex-direction: column;
+     color: #AEB3B6;
+     gap: 16px;
+ }
+
+ .statsContentValues {
+     display: flex;
+     flex-direction: column;
+     gap: 16px;
+     color: black;
+ }
+
+ .myChart {
+     margin: 16px;
+ }
+
+ /* overlay - END */
+
 
  /* generic classes: */
  .capitalLetters {
@@ -251,12 +265,33 @@
      padding: 32px;
  }
 
+ .padding2432 {
+     padding: 24px 32px;
+ }
+
+ .width32 {
+     width: 32px;
+ }
+
  .spaceBetween {
      display: flex;
      align-items: center;
      justify-content: space-between;
  }
 
- .marginBlockStart0 {
+ .marginBottom16 {
+     margin-bottom: 16px;
+ }
+
+ .marginTop8 {
+     margin-top: 8px;
+ }
+
+ .dNone {
+     display: none;
+ }
+
+ .marginBlockStartEnd0 {
      margin-block-start: 0;
+     margin-block-end: 0;
  }
