@@ -222,6 +222,10 @@
      color: black;
  }
 
+ .aboutTab {
+     color: rgb(248, 88, 136) !important;
+ }
+
  .statsContent {
      display: flex;
      gap: 80px;

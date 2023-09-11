@@ -50,6 +50,8 @@ const typeColours = {
 
 async function init() {
     await loadPokemon();
+    renderPokemonCards();
+    renderOverlay();
     console.log(loadedPokemon);
 }
 
@@ -59,8 +61,6 @@ async function loadPokemon() {
     for (let i = 0; i < allPokemon['results'].length; i++) {
         await fetchCurrentPokemon(allPokemon['results'][i]['url']); // request for one pokemon
     }
-    renderPokemonCards();
-    renderOverlay(); // overlay.js
 }
 
 

@@ -41,7 +41,7 @@ function pokemonOverlay(i) {
         <div class="infoContainer">
             <div class="InfoImageContainer"><img src="${pokemon['sprites']['other']['official-artwork']['front_default']}"></div>
             <div class="statsHeader">
-                <span id="aboutTab${i}" onclick="showAbout(${i})">
+                <span class="aboutTab" id="aboutTab${i}" onclick="showAbout(${i})">
                 About</span>
                 <span id="baseStatsTab${i}" onclick="showBaseStats(${i})">
                 Base Stats</span>
@@ -74,8 +74,7 @@ function pokemonOverlay(i) {
             </div>
 
             <!-- MOVES -->
-            <div>
-                <div>${move}</div>
+            <div id="moves${i}">
             </div>
         </div>
     </div >
