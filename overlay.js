@@ -88,8 +88,8 @@ function threeAbilities() {
 
 
 // BASE STATS
-function getBaseStats(i) {
-    let stats = currentPokemon['stats'];
+function getBaseStats() {
+    let stats = pokemon['stats'];
     for (let i = 0; i < stats.length; i++) {
         let statsNames = stats[i]['stat']['name'];
         let statsValues = stats[i]['base_stat'];
@@ -100,8 +100,11 @@ function getBaseStats(i) {
 
 
 
+
+
+
 // function getMoves(i) {
-//     let moves = currentPokemon['moves'];
+//     let moves = pokemon['moves'];
 
 //     for (let i = 0; i < moves.length; i++) {
 //         const move = moves[i]['move']['name'];

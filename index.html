@@ -17,12 +17,9 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js"></script> -->
 </head>
 
-
-<!-- body noch overflow: hidden geben, sobald Card geöffnet wird (deaktiviert Scrolling) -->
-
 <body onload="init()">
     <div class="rootDiv">
-        <div class="overlayDiv" id="overlay"></div>
+        <div onclick="closeOverlay()" class="overlayDiv dNone" id="overlay"></div>
         <div>
             <div class="headerContainer">
                 <div class="header">

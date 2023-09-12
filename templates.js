@@ -1,6 +1,6 @@
 function pokemonThumbnail(i) {
     return `
-    <div class="pokemonCard" id="pokemonCard${i}">
+    <div onclick="openOverlay(${i})" class="pokemonCard" id="pokemonCard${i}">
         <div class="spaceBetween marginTop8">
             <h2 class="capitalLetters marginBlockStartEnd0">${pokemon['name']}</h2>
             <span>#${pokemon['id'].toString().padStart(3, "0")}</span>
@@ -19,10 +19,10 @@ function pokemonThumbnail(i) {
 
 function pokemonOverlay(i) {
     return /*html*/`
-    <div class="pokemonInfoCard" id="pokemonInfoCard${i}">
+    <div onclick="doNotClose(event)" class="pokemonInfoCard" id="pokemonInfoCard${i}">
         <div class="padding2432">
-            <div class="spaceBetween marginBottom16">
-                <img class="invertWhite width32" src="./img/back.svg" alt="Pfeil zurück">
+            <div class="symbolsContainer">
+                <img onclick="closeOverlay()" class="invertWhite width32" src="./img/back.svg" alt="Pfeil zurück">
                 <img class="invertWhite width32" src="./img/heart.svg" alt="Herz">
             </div>
 
@@ -41,7 +41,7 @@ function pokemonOverlay(i) {
         <div class="infoContainer">
             <div class="InfoImageContainer"><img src="${pokemon['sprites']['other']['official-artwork']['front_default']}"></div>
             <div class="statsHeader">
-                <span class="aboutTab" id="aboutTab${i}" onclick="showAbout(${i})">
+                <span class="aboutTab" id="aboutTab${i}" onclick="showAbout(${i})" style="color: rgb(248, 88, 136);">
                 About</span>
                 <span id="baseStatsTab${i}" onclick="showBaseStats(${i})">
                 Base Stats</span>
