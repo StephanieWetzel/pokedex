@@ -12,9 +12,8 @@ async function fetchCurrentPokemon(url) { // url aus Funktion 'loadPokemon() wir
 }
 
 
-async function fetchEvolution() {
-    let url = `https://pokeapi.co/api/v2/evolution-chain/4/`
-    let response = await fetch(url);
-    let responseAsJson = await response.json();
-    console.log(responseAsJson);
-}
+// async function fetchEvolution() {
+//     let url = `https://pokeapi.co/api/v2/evolution-chain/4/`
+//     let response = await fetch(url);
+//     let responseAsJson = await response.json();
+// }

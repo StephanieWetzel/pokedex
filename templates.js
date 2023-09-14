@@ -18,6 +18,7 @@ function pokemonThumbnail(i) {
 
 
 function pokemonOverlay(i) {
+    backgroundColor = backgroundColours[pokemonType1];
     return /*html*/`
     <div onclick="doNotClose(event)" class="pokemonInfoCard" id="pokemonInfoCard${i}">
         <div class="padding2432">
@@ -41,9 +42,9 @@ function pokemonOverlay(i) {
         <div class="infoContainer">
             <div class="InfoImageContainer"><img src="${pokemon['sprites']['other']['official-artwork']['front_default']}"></div>
             <div class="statsHeader">
-                <span class="aboutTab" id="aboutTab${i}" onclick="showAbout(${i})" style="color: rgb(248, 88, 136);">
+                <span class="aboutTab" id="aboutTab${i}" onclick="showAboutTab(${i})" style="color: ${backgroundColor};">
                 About</span>
-                <span id="baseStatsTab${i}" onclick="showBaseStats(${i})">
+                <span id="baseStatsTab${i}" onclick="showBaseStatsTab(${i})">
                 Base Stats</span>
                 <span id="evolutionTab${i}">
                 Evolution</span>
