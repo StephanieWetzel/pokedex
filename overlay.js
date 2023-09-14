@@ -8,29 +8,31 @@ let pokemonStatsNames = [];
 let pokemonStatsValues = [];
 
 
-function renderOverlay() {
-    for (let i = 0; i < loadedPokemon.length; i++) {
-        document.getElementById('overlay').innerHTML = pokemonOverlay(i);
-        renderColors(i);
-        renderAbilities();
-        createChart(i);
-    }
-    getBaseStats();
+function renderOverlay(pokemon) {
+    document.getElementById(`pokemonInfoCard${pokemon}`);
+
+    renderColors(pokemon);
+    renderAbilities(pokemon);
+    createChart(pokemon);
+    getBaseStats(pokemon);
+
+    document.getElementById(`pokemonInfoCard${pokemon}`).innerHTML = renderOverlay(pokemon);
+
 }
 
 
 // COLORS
-function getInfoCardBackgroundColors(i) {
-    let pokemonInfoCard = document.getElementById(`pokemonInfoCard${i}`);
+function getInfoCardBackgroundColors(pokemon) {
+    let pokemonInfoCard = document.getElementById(`pokemonInfoCard${pokemon}`);
     backgroundColor = backgroundColours[pokemonType1]; // pokemonType1 == backgroundColours[i]
 
     pokemonInfoCard.style.backgroundColor = backgroundColor;
 }
 
 
-function getInfoCardTypeColors(i) {
-    let firstTypeInfoCard = document.getElementById(`firstTypeInfoCard${i}`);
-    let secondTypeInfoCard = document.getElementById(`secondTypeInfoCard${i}`);
+function getInfoCardTypeColors(pokemon) {
+    let firstTypeInfoCard = document.getElementById(`firstTypeInfoCard${pokemon}`);
+    let secondTypeInfoCard = document.getElementById(`secondTypeInfoCard${pokemon}`);
 
     typeColor1 = typeColours[pokemonType1];
     typeColor2 = typeColours[pokemonType2];
@@ -40,37 +42,37 @@ function getInfoCardTypeColors(i) {
 }
 
 
-function renderColors(i) {
-    getInfoCardBackgroundColors(i);
-    getInfoCardTypeColors(i);
+function renderColors(pokemon) {
+    getInfoCardBackgroundColors(pokemon);
+    getInfoCardTypeColors(pokemon);
 }
 
 
 // ABILITIES
-function renderAbilities() {
+function renderAbilities(pokemon) {
     firstAbility = '';
     secondAbility = '';
     thirdAbility = '';
 
-    getAbilitiesBasedOnAmount();
+    getAbilitiesBasedOnAmount(pokemon);
 }
 
 
-function getAbilitiesBasedOnAmount() {
-    oneAbility();
-    twoAbilities();
-    threeAbilities();
+function getAbilitiesBasedOnAmount(pokemon) {
+    oneAbility(pokemon);
+    twoAbilities(pokemon);
+    threeAbilities(pokemon);
 }
 
 
-function oneAbility() {
+function oneAbility(pokemon) {
     if (pokemon['abilities'].length == 1) {
         firstAbility = pokemon['abilities'][0]['ability']['name'];
     }
 }
 
 
-function twoAbilities() {
+function twoAbilities(pokemon) {
     if (pokemon['abilities'].length == 2) {
         firstAbility = pokemon['abilities'][0]['ability']['name'] + ',';
         secondAbility = pokemon['abilities'][1]['ability']['name'];
@@ -78,7 +80,7 @@ function twoAbilities() {
 }
 
 
-function threeAbilities() {
+function threeAbilities(pokemon) {
     if (pokemon['abilities'].length == 3) {
         firstAbility = pokemon['abilities'][0]['ability']['name'] + ',';
         secondAbility = pokemon['abilities'][1]['ability']['name'] + ',';
@@ -88,7 +90,7 @@ function threeAbilities() {
 
 
 // BASE STATS
-function getBaseStats() {
+function getBaseStats(pokemon) {
     let stats = pokemon['stats'];
     for (let i = 0; i < stats.length; i++) {
         let statsNames = stats[i]['stat']['name'];
@@ -97,10 +99,6 @@ function getBaseStats() {
         pokemonStatsValues.push(statsValues); // used in Chart
     }
 }
-
-
-
-
 
 
 // function getMoves(i) {
@@ -131,4 +129,34 @@ function showBaseStats(i) { // templates.js
 
     document.getElementById(`about${i}`).classList.add('dNone');
     document.getElementById(`aboutTab${i}`).style.color = '';
+}
+
+
+function openOverlay(pokemon) {
+    renderOverlay(pokemon);
+    document.body.style.overflow = 'hidden';
+    document.getElementById('mainContent').classList.add('dNone');
+    document.getElementById('overlay').classList.remove('dNone');
+}
+
+
+function closeOverlay() {
+    document.body.style.overflow = '';
+    document.getElementById('overlay').classList.add('dNone');
+    document.getElementById('mainContent').classList.remove('dNone');
+}
+
+
+function doNotClose(event) { // prevents overlay from closing when clicking in it
+    event.stopPropagation();
+}
+
+
+function showNextCard(i) {
+    openOverlay(i + 1);
+}
+
+
+function showPreviousCard(i) {
+    openOverlay(i - 1);
 }

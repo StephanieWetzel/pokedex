@@ -69,8 +69,8 @@ function renderPokemonCards() {
         pokemon = loadedPokemon[i];
         getPokemonTypes();
         document.getElementById('mainContent').innerHTML += pokemonThumbnail(i); // templates.js
-        getPokemonBackgroundColors(i);
-        getPokemonTypeColors(i);
+        getPokemonBackgroundColors(i); // comes after document.get... because style can only be manipulated AFTER container has been rendered 
+        getPokemonTypeColors(i); // see comment before
     }
 }
 
@@ -106,36 +106,4 @@ function getPokemonTypeColors(i) {
 
     firstPokemonType.style.backgroundColor = typeColor1;
     secondPokemonType.style.backgroundColor = typeColor2;
-}
-
-
-// ONCLICK
-function openOverlay() {
-    document.body.style.overflow = 'hidden';
-    document.getElementById('mainContent').classList.add('dNone');
-    document.getElementById('overlay').classList.remove('dNone');
-    renderOverlay();
-
-}
-
-
-function closeOverlay() {
-    document.body.style.overflow = '';
-    document.getElementById('overlay').classList.add('dNone');
-    document.getElementById('mainContent').classList.remove('dNone');
-}
-
-
-function doNotClose(event) { // prevents overlay from closing when clicking in it
-    event.stopPropagation();
-}
-
-
-function showNextCard(i) {
-    openOverlay(i + 1);
-}
-
-
-function showPreviousCard(i) {
-    openOverlay(i - 1);
 }
