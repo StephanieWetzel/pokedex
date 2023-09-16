@@ -18,7 +18,7 @@ function pokemonThumbnail(i) {
 
 
 function pokemonOverlay(i) {
-    backgroundColor = backgroundColours[pokemonType1];
+    backgroundColor = backgroundColors[pokemonType1];
     return /*html*/`
     <div onclick="doNotClose(event)" class="pokemonInfoCard" id="pokemonInfoCard${i}">
         <div class="padding2432">
@@ -37,6 +37,11 @@ function pokemonOverlay(i) {
                     <span id="secondTypeInfoCard${i}">${pokemonType2}</span>
                 </div>
             </div>
+        </div>
+
+        <div class="leftRightContainer">
+            <img onclick="showPreviousCard(${i})" class="width32" src="./img/left.png">
+            <img onclick="showNextCard(${i})" class="width32" src="./img/right.png">
         </div>
 
         <div class="infoContainer">
@@ -64,14 +69,14 @@ function pokemonOverlay(i) {
                     <div class="statsContentValues">
                         <span>${pokemon['height'] * 10} cm</span>
                         <span>${pokemon['weight'] / 10} kg</span>
-                        <span>${firstAbility} ${secondAbility} ${thirdAbility}</span>
+                        <span id="abilities${i}">${firstAbility} ${secondAbility} ${thirdAbility}</span>
                     </div>
                 </div>
             </div>
 
             <!-- BASE STATS -->
             <div class="dNone" id="baseStats${i}">
-                <canvas class="myChart" id="myChart${i}" style="height:248px;" ></canvas>
+                <canvas class="myChart" id="myChart${i}" style="height:248px;"></canvas>
             </div>
 
             <!-- MOVES -->

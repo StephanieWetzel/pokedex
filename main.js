@@ -7,7 +7,7 @@ let pokemonType1;
 let pokemonType2;
 
 
-const backgroundColours = {
+const backgroundColors = {
     normal: '#A8A878',
     fire: '#F08030',
     water: '#6890F0',
@@ -27,7 +27,7 @@ const backgroundColours = {
     fairy: '#EE99AC',
 };
 
-const typeColours = {
+const typeColors = {
     normal: '#C6C6A7',
     fire: '#F5AC78',
     water: '#9DB7F5',
@@ -91,7 +91,7 @@ function getPokemonTypes() {
 
 function getPokemonBackgroundColors(i) {
     let pokemonCard = document.getElementById(`pokemonCard${i}`);
-    let backgroundColor = backgroundColours[pokemonType1]; // pokemonType1 == backgroundColours[i]
+    let backgroundColor = backgroundColors[pokemonType1]; // pokemonType1 == backgroundColors[i]
 
     pokemonCard.style.backgroundColor = backgroundColor;
 }
@@ -101,8 +101,8 @@ function getPokemonTypeColors(i) {
     let firstPokemonType = document.getElementById(`firstPokemonType${i}`);
     let secondPokemonType = document.getElementById(`secondPokemonType${i}`);
 
-    let typeColor1 = typeColours[pokemonType1];
-    let typeColor2 = typeColours[pokemonType2];
+    let typeColor1 = typeColors[pokemonType1];
+    let typeColor2 = typeColors[pokemonType2];
 
     firstPokemonType.style.backgroundColor = typeColor1;
     secondPokemonType.style.backgroundColor = typeColor2;

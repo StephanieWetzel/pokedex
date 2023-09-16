@@ -11,14 +11,11 @@ let pokemonStatsValues = [];
 function renderOverlay(i) {
     pokemon = loadedPokemon[i];// makes sure only one pokemon will be rendered
     getPokemonTypes();
+    getAbilities();
     document.getElementById('overlay').innerHTML = pokemonOverlay(i);
     renderColors(i);
-    // oneAbility;
-    // twoAbilities();
-    // threeAbilities();
     getBaseStats();
     createChart(i);
-
 }
 
 
@@ -27,7 +24,7 @@ function getInfoCardBackgroundColors(i) {
     getPokemonTypes(); // main.js
 
     let pokemonInfoCard = document.getElementById(`pokemonInfoCard${i}`);
-    backgroundColor = backgroundColours[pokemonType1]; // pokemonType1 == backgroundColours[i]
+    backgroundColor = backgroundColors[pokemonType1]; // pokemonType1 == backgroundColors[i]
 
     pokemonInfoCard.style.backgroundColor = backgroundColor;
 }
@@ -39,8 +36,8 @@ function getInfoCardTypeColors(i) {
     let firstTypeInfoCard = document.getElementById(`firstTypeInfoCard${i}`);
     let secondTypeInfoCard = document.getElementById(`secondTypeInfoCard${i}`);
 
-    typeColor1 = typeColours[pokemonType1];
-    typeColor2 = typeColours[pokemonType2];
+    typeColor1 = typeColors[pokemonType1];
+    typeColor2 = typeColors[pokemonType2];
 
     firstTypeInfoCard.style.backgroundColor = typeColor1;
     secondTypeInfoCard.style.backgroundColor = typeColor2;
@@ -54,54 +51,41 @@ function renderColors(i) {
 
 
 // ABILITIES
-// function renderAbilities() {
-//     firstAbility = '';
-//     secondAbility = '';
-//     thirdAbility = '';
+function getAbilities() {
+    let abilities = pokemon['abilities'];
+    for (let i = 0; i < abilities.length; i++) {
+        if (abilities.length == 1) {
+            oneAbility(abilities);
+        }
+        if (abilities.length == 2) {
+            twoAbilities(abilities);
+        }
 
-//     getAbilitiesBasedOnAmount();
-// }
+        if (abilities.length == 3) {
+            threeAbilities(abilities);
+        }
+    }
+}
 
-
-// function getAbilitiesBasedOnAmount() {
-//     oneAbility();
-//     twoAbilities();
-//     threeAbilities();
-// }
-
-
-// function oneAbility() {
-//     let abilities = pokemon['abilities'];
-//     if (abilities.length == 1) {
-//         firstAbility = pokemon['abilities'][0]['ability']['name'];
-//     }
-// }
-
-
-// function twoAbilities() {
-//     if (pokemon['abilities'].length == 2) {
-//         firstAbility = pokemon['abilities'][0]['ability']['name'] + ',';
-//         secondAbility = pokemon['abilities'][1]['ability']['name'];
-//     }
-// }
+function oneAbility(abilities) {
+    firstAbility = abilities[0]['ability']['name'];
+    secondAbility = '';
+    thirdAbility = '';
+}
 
 
-// function getAbilities() {
-//     for (let i = 0; i < abilities.length; i++) {
-//         firstAbility = abilities[0]['ability']['name'];
-//         secondAbility = abilities[1]['ability']['name'];
-//         thirdAbility = abilities[2]['ability']['name'];
-//         document.getElementById(`abilities${i}`)
-//     }
+function twoAbilities(abilities) {
+    firstAbility = abilities[0]['ability']['name'] + ',';
+    secondAbility = abilities[1]['ability']['name'];
+    thirdAbility = '';
+}
 
-// firstAbility = '';
-// secondAbility = '';
-// thirdAbility = '';
 
-// firstAbility = pokemon['abilities'][0]['ability']['name'] + ',';
-// secondAbility = pokemon['abilities'][1]['ability']['name'] + ',';
-// thirdAbility = pokemon['abilities'][2]['ability']['name'];
-// }
+function threeAbilities(abilities) {
+    firstAbility = abilities[0]['ability']['name'] + ',';
+    secondAbility = abilities[1]['ability']['name'] + ',';
+    thirdAbility = abilities[2]['ability']['name'];
+}
 
 
 // BASE STATS
@@ -131,7 +115,7 @@ function getBaseStats() {
 // ONCLICK
 function showAboutTab(i) { // templates.js
     getPokemonTypes();
-    backgroundColor = backgroundColours[pokemonType1];
+    backgroundColor = backgroundColors[pokemonType1];
 
     document.getElementById(`about${i}`).classList.remove('dNone');
     document.getElementById(`aboutTab${i}`).style.color = backgroundColor;
@@ -143,7 +127,7 @@ function showAboutTab(i) { // templates.js
 
 function showBaseStatsTab(i) { // templates.js
     getPokemonTypes();
-    backgroundColor = backgroundColours[pokemonType1];
+    backgroundColor = backgroundColors[pokemonType1];
 
     document.getElementById(`baseStats${i}`).classList.remove('dNone');
     document.getElementById(`baseStatsTab${i}`).style.color = backgroundColor;
@@ -163,6 +147,8 @@ function openOverlay(i) {
 
 function closeOverlay() {
     document.body.style.overflow = '';
+    pokemonStatsNames = []; // prevents stats from being multiplied (reloads stats every time openOverlay(i) is executed)
+    pokemonStatsValues = [];
     document.getElementById('overlay').classList.add('dNone');
     document.getElementById('mainContent').classList.remove('dNone');
 }
@@ -174,10 +160,14 @@ function doNotClose(event) { // prevents overlay from closing when clicking in i
 
 
 function showNextCard(i) {
+    pokemonStatsNames = []; // prevents stats from being multiplied (reloads stats every time openOverlay(i) is executed)
+    pokemonStatsValues = [];
     openOverlay(i + 1);
 }
 
 
 function showPreviousCard(i) {
+    pokemonStatsNames = []; // prevents stats from being multiplied (reloads stats every time openOverlay(i) is executed)
+    pokemonStatsValues = [];
     openOverlay(i - 1);
 }

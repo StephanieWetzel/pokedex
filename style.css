@@ -82,11 +82,6 @@
      background-size: contain;
  }
 
- ::after,
- ::before {
-     box-sizing: border-box;
- }
-
  /* scrollbar - END */
 
 
@@ -251,6 +246,20 @@
 
  .myChart {
      margin: 16px;
+ }
+
+ .leftRightContainer {
+     display: flex;
+     justify-content: space-between;
+     padding: 0 32px;
+     position: absolute;
+     margin-top: 56px;
+     gap: 325px;
+ }
+
+ .leftRightContainer img:hover {
+     cursor: pointer;
+     transform: scale(1.4);
  }
 
  /* overlay - END */
