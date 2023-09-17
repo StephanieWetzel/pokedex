@@ -54,7 +54,7 @@ function pokemonOverlay(i) {
                 Base Stats</span>
                 <span id="evolutionTab${i}">
                 Evolution</span>
-                <span id="movesTab${i}">
+                <span id="movesTab${i}" onclick="showMovesTab(${i})">
                 Moves</span>
             </div>
 
@@ -80,8 +80,13 @@ function pokemonOverlay(i) {
                 <canvas class="myChart" id="myChart${i}" style="height:248px;"></canvas>
             </div>
 
+            <!-- EVOLUTION -->
+            <div class="dNone" id="evolution${i}">
+
+            </div>
+
             <!-- MOVES -->
-            <div id="moves${i}">
+            <div class="dNone movesContainer" id="moves${i}">
             </div>
         </div>
     </div >

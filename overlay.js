@@ -6,6 +6,7 @@ let typeColor1;
 let typeColor2;
 let pokemonStatsNames = [];
 let pokemonStatsValues = [];
+let evoChain = [];
 
 
 function renderOverlay(i) {
@@ -16,6 +17,7 @@ function renderOverlay(i) {
     renderColors(i);
     getBaseStats();
     createChart(i);
+    getMoves(i);
 }
 
 
@@ -100,19 +102,29 @@ function getBaseStats() {
 }
 
 
-// function getMoves(i) {
-//     let moves = pokemon['moves'];
-
-//     for (let i = 0; i < moves.length; i++) {
-//         const move = moves[i]['move']['name'];
-//         document.getElementById(`moves${i}`).innerHTML += `
-//         <div class="moveContainer">${move}</div>
-//         `
-//     }
+// EVOLUTION
+// async function getEvoChain() {
+//     await fetchEvolution(id)
+//     let species = pokemon['species']['name'];
 // }
 
 
+// MOVES
+function getMoves(i) {
+    let movesContainer = document.getElementById(`moves${i}`);
+    let moves = pokemon['moves'];
+    for (let i = 0; i < moves.length; i++) {
+        let move = moves[i]['move']['name'];
+        movesContainer.innerHTML += `
+        <span id="move${i}">${move}</span>
+        `
+        document.getElementById(`move${i}`).style.backgroundColor = typeColor1;
+    }
+}
+
+
 // ONCLICK
+// tabs
 function showAboutTab(i) { // templates.js
     getPokemonTypes();
     backgroundColor = backgroundColors[pokemonType1];
@@ -122,6 +134,9 @@ function showAboutTab(i) { // templates.js
 
     document.getElementById(`baseStats${i}`).classList.add('dNone');
     document.getElementById(`baseStatsTab${i}`).style.color = '';
+
+    document.getElementById(`moves${i}`).classList.add('dNone');
+    document.getElementById(`movesTab${i}`).style.color = '';
 }
 
 
@@ -134,9 +149,28 @@ function showBaseStatsTab(i) { // templates.js
 
     document.getElementById(`about${i}`).classList.add('dNone');
     document.getElementById(`aboutTab${i}`).style.color = '';
+
+    document.getElementById(`moves${i}`).classList.add('dNone');
+    document.getElementById(`movesTab${i}`).style.color = '';
 }
 
 
+function showMovesTab(i) { // templates.js
+    getPokemonTypes();
+    backgroundColor = backgroundColors[pokemonType1];
+
+    document.getElementById(`moves${i}`).classList.remove('dNone');
+    document.getElementById(`movesTab${i}`).style.color = backgroundColor;
+
+    document.getElementById(`baseStats${i}`).classList.add('dNone');
+    document.getElementById(`baseStatsTab${i}`).style.color = '';
+
+    document.getElementById(`about${i}`).classList.add('dNone');
+    document.getElementById(`aboutTab${i}`).style.color = '';
+}
+
+
+// overlay
 function openOverlay(i) {
     renderOverlay(i);
     document.body.style.overflow = 'hidden';
@@ -160,6 +194,7 @@ function doNotClose(event) { // prevents overlay from closing when clicking in i
 }
 
 
+// next/previous
 function showNextCard(i) {
     pokemonStatsNames = []; // prevents stats from being multiplied (reloads stats every time openOverlay(i) is executed)
     pokemonStatsValues = [];

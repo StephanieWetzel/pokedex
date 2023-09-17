@@ -272,6 +272,24 @@
      margin-right: 4px;
  }
 
+ .movesContainer {
+     display: flex;
+     flex-wrap: wrap;
+     justify-content: center;
+     max-height: 248px;
+     padding: 24px 32px;
+     overflow-y: auto;
+     margin-bottom: 16px;
+     gap: 8px;
+ }
+
+ .movesContainer span {
+     height: 24px;
+     color: white;
+     padding: 4px 16px;
+     border-radius: 24px;
+ }
+
  /* overlay - END */
 
 
