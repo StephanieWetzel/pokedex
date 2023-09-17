@@ -142,6 +142,7 @@ function openOverlay(i) {
     document.body.style.overflow = 'hidden';
     document.getElementById('mainContent').classList.add('dNone');
     document.getElementById('overlay').classList.remove('dNone');
+    renderButtons(i);
 }
 
 
@@ -170,4 +171,21 @@ function showPreviousCard(i) {
     pokemonStatsNames = []; // prevents stats from being multiplied (reloads stats every time openOverlay(i) is executed)
     pokemonStatsValues = [];
     openOverlay(i - 1);
+}
+
+
+function renderButtons(i) {
+    if (i == 0) {
+        document.getElementById('previous').classList.add('dNone');
+    }
+
+    if (i == loadedPokemon.length - 1) {
+        document.getElementById('next').classList.add('dNone');
+    }
+}
+
+
+function toggleHeart() {
+    document.getElementById('heart').classList.toggle('dNone');
+    document.getElementById('filledHeart').classList.toggle('dNone');
 }

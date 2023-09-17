@@ -24,7 +24,8 @@ function pokemonOverlay(i) {
         <div class="padding2432">
             <div class="symbolsContainer">
                 <img onclick="closeOverlay()" class="invertWhite width32" src="./img/back.svg" alt="Pfeil zurück">
-                <img class="invertWhite width32" src="./img/heart.svg" alt="Herz">
+                <img onclick="toggleHeart()" id="heart" class="invertWhite width32" src="./img/heart.svg" alt="Herz">
+                <img onclick="toggleHeart()" id="filledHeart" class="dNone filledHeart" src="./img/filledHeart.png" alt="Herz gefüllt">
             </div>
 
             <div class="typesContainer">
@@ -40,8 +41,8 @@ function pokemonOverlay(i) {
         </div>
 
         <div class="leftRightContainer">
-            <img onclick="showPreviousCard(${i})" class="width32" src="./img/left.png">
-            <img onclick="showNextCard(${i})" class="width32" src="./img/right.png">
+            <img id="previous" onclick="showPreviousCard(${i})" class="width32" src="./img/left.png">
+            <img id="next" onclick="showNextCard(${i})" class="width32" src="./img/right.png">
         </div>
 
         <div class="infoContainer">

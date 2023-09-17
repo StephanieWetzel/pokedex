@@ -178,7 +178,7 @@
      flex-direction: column;
      background-color: white;
      border-radius: 32px;
-     margin-top: 168px;
+     margin-top: 144px;
  }
 
  .symbolsContainer {
@@ -186,10 +186,6 @@
      align-items: center;
      justify-content: space-between;
      margin-bottom: 16px;
- }
-
- .symbolsContainer img {
-     width: 32px;
  }
 
  .symbolsContainer img:hover {
@@ -251,8 +247,7 @@
  .leftRightContainer {
      display: flex;
      justify-content: space-between;
-     padding: 0 32px;
-     position: absolute;
+     position: relative;
      margin-top: 56px;
      gap: 325px;
  }
@@ -260,6 +255,21 @@
  .leftRightContainer img:hover {
      cursor: pointer;
      transform: scale(1.4);
+ }
+
+ #previous {
+     position: absolute;
+     left: 32px;
+ }
+
+ #next {
+     position: absolute;
+     right: 32px;
+ }
+
+ .filledHeart {
+     width: 24px;
+     margin-right: 4px;
  }
 
  /* overlay - END */
