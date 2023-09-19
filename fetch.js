@@ -12,8 +12,19 @@ async function fetchCurrentPokemon(url) { // url aus Funktion 'loadPokemon() wir
 }
 
 
-// async function fetchEvolution(id) {
-//     let url = `https://pokeapi.co/api/v2/evolution-chain/${id}/`
-//     let response = await fetch(url);
-//     evoChain = await response.json();
+// async function fetchEvolution() {
+//     let speciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${pokemon['name']}/`
+//     let speciesResponse = await fetch(speciesUrl);
+//     let speciesJson = await speciesResponse.json();
+//     let evoChainUrl = speciesJson['evolution_chain']['url'];
+//     let evoChainResponse = await fetch(evoChainUrl);
+//     evoChain = await evoChainResponse.json();
 // }
+
+
+async function fetchSpeciesForEvo() {
+    let speciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${pokemon['name']}/`
+    let speciesResponse = await fetch(speciesUrl);
+    species = await speciesResponse.json();
+    console.log(species);
+}

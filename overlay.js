@@ -6,7 +6,9 @@ let typeColor1;
 let typeColor2;
 let pokemonStatsNames = [];
 let pokemonStatsValues = [];
-let evoChain = [];
+let species;
+let allFormerPokemon = [];
+let formerPokemon // allFormerPokemon[i];
 
 
 function renderOverlay(i) {
@@ -17,11 +19,17 @@ function renderOverlay(i) {
     renderColors(i);
     getBaseStats();
     createChart(i);
+    getEvos(i);
     getMoves(i);
 }
 
 
 // COLORS
+function renderColors(i) {
+    getInfoCardBackgroundColors(i);
+    getInfoCardTypeColors(i);
+}
+
 function getInfoCardBackgroundColors(i) {
     getPokemonTypes(); // main.js
 
@@ -30,7 +38,6 @@ function getInfoCardBackgroundColors(i) {
 
     pokemonInfoCard.style.backgroundColor = backgroundColor;
 }
-
 
 function getInfoCardTypeColors(i) {
     getPokemonTypes(); // main.js
@@ -43,12 +50,6 @@ function getInfoCardTypeColors(i) {
 
     firstTypeInfoCard.style.backgroundColor = typeColor1;
     secondTypeInfoCard.style.backgroundColor = typeColor2;
-}
-
-
-function renderColors(i) {
-    getInfoCardBackgroundColors(i);
-    getInfoCardTypeColors(i);
 }
 
 
@@ -75,13 +76,11 @@ function oneAbility(abilities) {
     thirdAbility = '';
 }
 
-
 function twoAbilities(abilities) {
     firstAbility = abilities[0]['ability']['name'] + ',';
     secondAbility = abilities[1]['ability']['name'];
     thirdAbility = '';
 }
-
 
 function threeAbilities(abilities) {
     firstAbility = abilities[0]['ability']['name'] + ',';
@@ -103,10 +102,61 @@ function getBaseStats() {
 
 
 // EVOLUTION
-// async function getEvoChain() {
-//     await fetchEvolution(id)
-//     let species = pokemon['species']['name'];
-// }
+async function getEvos(i) {
+    await fetchSpeciesForEvo();
+    await fetchFormerPokemon(i);
+    await fetchNextPokemon(i);
+}
+
+// former pokemon
+async function fetchFormerPokemon(i) {
+    // get former species:
+    let formerSpeciesPath = species['evolves_from_species'];
+    if (formerSpeciesPath) { // 'evolves_from_species' != null
+        await formerPokemonVariables(formerSpeciesPath);
+        // fetching/rendering img of former pokemon:
+        let evoOFContainer = document.getElementById(`evoOF${i}`);
+        for (let i = 0; i < loadedPokemon.length; i++) {
+            formerPokemon = allFormerPokemon[i];
+            console.log(formerPokemon);
+            evoOFContainer.innerHTML = `
+            <span>Evolution of:</span>
+            <img src="${formerPokemon['sprites']['other']['official-artwork']['front_default']}"></img>
+            `;
+        }
+    } else { // if 'evolves_from_species' is null -> stop executing
+        return;
+    }
+}
+
+async function formerPokemonVariables(formerSpeciesPath) {
+    let formerSpeciesUrl = formerSpeciesPath['url'];
+    let formerSpeciesResponse = await fetch(formerSpeciesUrl);
+    let formerSpeciesAsJson = await formerSpeciesResponse.json();
+    let formerSpeciesId = formerSpeciesAsJson['id'];
+    let formerPokemonUrl = `https://pokeapi.co/api/v2/pokemon/${formerSpeciesId}/`;
+    let formerPokemonResponse = await fetch(formerPokemonUrl);
+    let formerPokemonAsJson = await formerPokemonResponse.json();
+    allFormerPokemon.push(formerPokemonAsJson);
+}
+
+// next pokemon
+async function fetchNextPokemon(i) {
+    let evoChainUrl = species['evolution_chain']['url'];
+    let evoChainResponse = await fetch(evoChainUrl);
+    let evoChainAsJson = await evoChainResponse.json();
+    console.log(evoChainAsJson);
+
+    // for (let i = 0; i < evoChain.length; i++) {
+    //     const firstEvo = evoChain['chain']['evolves_to'][0];
+    //     const secondEvo = evoChain['chain']['evolves_to'][0]['evolves_to'][0];
+    //     console.log(evoChain);
+    //     evoContainer.innerHTML += `
+    //     <span>${firstEvo}</span>
+    //     <span>${secondEvo}</span>
+    //     `;
+    // }
+}
 
 
 // MOVES
@@ -137,6 +187,9 @@ function showAboutTab(i) { // templates.js
 
     document.getElementById(`moves${i}`).classList.add('dNone');
     document.getElementById(`movesTab${i}`).style.color = '';
+
+    document.getElementById(`evolution${i}`).classList.add('dNone');
+    document.getElementById(`evolutionTab${i}`).style.color = '';
 }
 
 
@@ -152,6 +205,27 @@ function showBaseStatsTab(i) { // templates.js
 
     document.getElementById(`moves${i}`).classList.add('dNone');
     document.getElementById(`movesTab${i}`).style.color = '';
+
+    document.getElementById(`evolution${i}`).classList.add('dNone');
+    document.getElementById(`evolutionTab${i}`).style.color = '';
+}
+
+
+function showEvolutionTab(i) {
+    getPokemonTypes();
+    backgroundColor = backgroundColors[pokemonType1];
+
+    document.getElementById(`evolution${i}`).classList.remove('dNone');
+    document.getElementById(`evolutionTab${i}`).style.color = backgroundColor;
+
+    document.getElementById(`moves${i}`).classList.add('dNone');
+    document.getElementById(`movesTab${i}`).style.color = '';
+
+    document.getElementById(`baseStats${i}`).classList.add('dNone');
+    document.getElementById(`baseStatsTab${i}`).style.color = '';
+
+    document.getElementById(`about${i}`).classList.add('dNone');
+    document.getElementById(`aboutTab${i}`).style.color = '';
 }
 
 
@@ -167,6 +241,9 @@ function showMovesTab(i) { // templates.js
 
     document.getElementById(`about${i}`).classList.add('dNone');
     document.getElementById(`aboutTab${i}`).style.color = '';
+
+    document.getElementById(`evolution${i}`).classList.add('dNone');
+    document.getElementById(`evolutionTab${i}`).style.color = '';
 }
 
 
@@ -220,6 +297,7 @@ function renderButtons(i) {
 }
 
 
+// like-button
 function toggleHeart() {
     document.getElementById('heart').classList.toggle('dNone');
     document.getElementById('filledHeart').classList.toggle('dNone');

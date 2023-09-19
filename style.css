@@ -272,6 +272,10 @@
      margin-right: 4px;
  }
 
+ .evoContainer span {
+     color: black;
+ }
+
  .movesContainer {
      display: flex;
      flex-wrap: wrap;
