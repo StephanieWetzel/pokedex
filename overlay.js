@@ -6,12 +6,9 @@ let typeColor1;
 let typeColor2;
 let pokemonStatsNames = [];
 let pokemonStatsValues = [];
-let species;
-let allFormerPokemon = [];
-let formerPokemon // allFormerPokemon[i];
 
 
-function renderOverlay(i) {
+async function renderOverlay(i) {
     pokemon = loadedPokemon[i];// makes sure only one pokemon will be rendered
     getPokemonTypes();
     getAbilities();
@@ -19,7 +16,7 @@ function renderOverlay(i) {
     renderColors(i);
     getBaseStats();
     createChart(i);
-    getEvos(i);
+    await getEvos(i);
     getMoves(i);
 }
 
@@ -98,64 +95,6 @@ function getBaseStats() {
         pokemonStatsNames.push(statsNames); // used in Chart
         pokemonStatsValues.push(statsValues); // used in Chart
     }
-}
-
-
-// EVOLUTION
-async function getEvos(i) {
-    await fetchSpeciesForEvo();
-    await fetchFormerPokemon(i);
-    await fetchNextPokemon(i);
-}
-
-// former pokemon
-async function fetchFormerPokemon(i) {
-    // get former species:
-    let formerSpeciesPath = species['evolves_from_species'];
-    if (formerSpeciesPath) { // 'evolves_from_species' != null
-        await formerPokemonVariables(formerSpeciesPath);
-        // fetching/rendering img of former pokemon:
-        let evoOFContainer = document.getElementById(`evoOF${i}`);
-        for (let i = 0; i < loadedPokemon.length; i++) {
-            formerPokemon = allFormerPokemon[i];
-            console.log(formerPokemon);
-            evoOFContainer.innerHTML = `
-            <span>Evolution of:</span>
-            <img src="${formerPokemon['sprites']['other']['official-artwork']['front_default']}"></img>
-            `;
-        }
-    } else { // if 'evolves_from_species' is null -> stop executing
-        return;
-    }
-}
-
-async function formerPokemonVariables(formerSpeciesPath) {
-    let formerSpeciesUrl = formerSpeciesPath['url'];
-    let formerSpeciesResponse = await fetch(formerSpeciesUrl);
-    let formerSpeciesAsJson = await formerSpeciesResponse.json();
-    let formerSpeciesId = formerSpeciesAsJson['id'];
-    let formerPokemonUrl = `https://pokeapi.co/api/v2/pokemon/${formerSpeciesId}/`;
-    let formerPokemonResponse = await fetch(formerPokemonUrl);
-    let formerPokemonAsJson = await formerPokemonResponse.json();
-    allFormerPokemon.push(formerPokemonAsJson);
-}
-
-// next pokemon
-async function fetchNextPokemon(i) {
-    let evoChainUrl = species['evolution_chain']['url'];
-    let evoChainResponse = await fetch(evoChainUrl);
-    let evoChainAsJson = await evoChainResponse.json();
-    console.log(evoChainAsJson);
-
-    // for (let i = 0; i < evoChain.length; i++) {
-    //     const firstEvo = evoChain['chain']['evolves_to'][0];
-    //     const secondEvo = evoChain['chain']['evolves_to'][0]['evolves_to'][0];
-    //     console.log(evoChain);
-    //     evoContainer.innerHTML += `
-    //     <span>${firstEvo}</span>
-    //     <span>${secondEvo}</span>
-    //     `;
-    // }
 }
 
 
@@ -248,8 +187,8 @@ function showMovesTab(i) { // templates.js
 
 
 // overlay
-function openOverlay(i) {
-    renderOverlay(i);
+async function openOverlay(i) {
+    await renderOverlay(i);
     document.body.style.overflow = 'hidden';
     document.getElementById('mainContent').classList.add('dNone');
     document.getElementById('overlay').classList.remove('dNone');

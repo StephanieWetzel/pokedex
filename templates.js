@@ -82,8 +82,8 @@ function pokemonOverlay(i) {
 
             <!-- EVOLUTION -->
             <div class="dNone evoContainer" id="evolution${i}">
-                <div id="evoOF${i}">
-                </div>
+                <div id="evoOF${i}"></div>
+                <div id="evoTO${i}"></div>
             </div>
 
             <!-- MOVES -->
