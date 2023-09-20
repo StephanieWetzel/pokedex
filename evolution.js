@@ -21,7 +21,7 @@ async function fetchSpeciesForEvo() {
 }
 
 
-// former pokemon
+// FORMER pokemon
 async function renderFormerPokemon(i) {
     let formerSpeciesPath = species['evolves_from_species'];
     if (formerSpeciesPath) {
@@ -51,21 +51,23 @@ async function fetchFormerPokemon(formerSpeciesPath) {
 function renderFormerPokemonImg(i, evoOFContainer) {
     formerPokemon = allFormerPokemon[i];
     evoOFContainer.innerHTML = `
-            <span>Evolved from:</span>
-            <img src="${formerPokemon['sprites']['other']['official-artwork']['front_default']}"></img>
+            <span id="evoFrom${i}">Evolved from:</span>
+            <img class="evolutionImg" src="${formerPokemon['sprites']['other']['official-artwork']['front_default']}"></img>
             `;
+    document.getElementById(`evoFrom${i}`).style.color = backgroundColor;
 }
 
 
-// next pokemon
+// NEXT pokemon
 async function renderNextPokemon(i) {
     await fetchSpeciesEvoChain();
     evoTOContainer = document.getElementById(`evoTO${i}`);
 
     let pokemonBaseForm = pokemon['name'] == nextSpeciesPath['species']['name'];
     if (pokemonBaseForm) {
-        if (nextSpeciesPath['evolves_to'] == '') {
-            return; // if pokemon has no evolution
+        if (nextSpeciesPath['evolves_to'] == '') { // if pokemon has no evolution - hide tab
+            document.getElementById(`evolutionTab${i}`).classList.add('dNone');
+            return;
         }
         await renderFirstEvoPokemon();
     }
@@ -112,9 +114,10 @@ async function fetchFirstEvoPokemon() {
 function renderFirstEvoPokemonImg(i) {
     let firstEvoPokemon = allFirstEvoPokemon[i];
     evoTOContainer.innerHTML = `
-             <span>Evolves to:</span>
-            <img src="${firstEvoPokemon['sprites']['other']['official-artwork']['front_default']}"></img>
+             <span id="firstEvoTo${i}">Evolves to:</span>
+            <img class="evolutionImg" src="${firstEvoPokemon['sprites']['other']['official-artwork']['front_default']}"></img>
             `;
+    document.getElementById(`firstEvoTo${i}`).style.color = backgroundColor;
 }
 
 
@@ -142,7 +145,8 @@ async function fetchSecondEvoPokemon() {
 function renderSecondEvoPokemonImg(i) {
     let secondEvoPokemon = allSecondEvoPokemon[i];
     evoTOContainer.innerHTML = `
-             <span>Evolves to:</span>
-            <img src="${secondEvoPokemon['sprites']['other']['official-artwork']['front_default']}"></img>
+             <span id="secondEvoTo${i}">Evolves to:</span>
+            <img class="evolutionImg" src="${secondEvoPokemon['sprites']['other']['official-artwork']['front_default']}"></img>
             `;
+    document.getElementById(`secondEvoTo${i}`).style.color = backgroundColor;
 }

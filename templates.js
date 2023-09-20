@@ -1,5 +1,5 @@
 function pokemonThumbnail(i) {
-    return `
+    return /*html*/`
     <div onclick="openOverlay(${i})" class="pokemonCard" id="pokemonCard${i}">
         <div class="spaceBetween marginTop8">
             <h2 class="capitalLetters marginBlockStartEnd0">${pokemon['name']}</h2>
