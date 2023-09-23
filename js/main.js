@@ -1,11 +1,8 @@
-
 let allPokemon; // Array - only pokemon names
 let loadedPokemon = [];
-// let currentPokemon; // loadedPokemon[i];
 let pokemon; // loadedPokemon[i];
 let pokemonType1;
 let pokemonType2;
-
 
 const backgroundColors = {
     normal: '#A8A878',
@@ -48,12 +45,7 @@ const typeColors = {
     fairy: '#F4BDC9',
 };
 
-
-async function init() {
-    await loadPokemon();
-    renderPokemonCards();
-    console.log(loadedPokemon);
-}
+let pokemonThumbnailCount = 0;
 
 
 async function loadPokemon() {
@@ -61,16 +53,33 @@ async function loadPokemon() {
     for (let i = 0; i < allPokemon['results'].length; i++) {
         await fetchCurrentPokemon(allPokemon['results'][i]['url']); // request for one pokemon
     }
+    renderPokemonCards();
+    console.log(loadedPokemon);
+}
+
+
+async function fetchAllPokemon() {
+    let url = `https://pokeapi.co/api/v2/pokemon/?offset=${pokemonThumbnailCount}&limit=20`
+    let response = await fetch(url);
+    allPokemon = await response.json();
+}
+
+
+async function fetchCurrentPokemon(url) { // url aus Funktion 'loadPokemon() wird eingesetzt
+    let response = await fetch(url);
+    pokemon = await response.json();
+    loadedPokemon.push(pokemon);
 }
 
 
 function renderPokemonCards() {
-    for (let i = 0; i < loadedPokemon.length; i++) { // main-Array
+    for (let i = 0; i < loadedPokemon.length; i++) {
+        i = i + pokemonThumbnailCount;
         pokemon = loadedPokemon[i];
         getPokemonTypes();
         document.getElementById('mainContent').innerHTML += pokemonThumbnail(i); // templates.js
-        getPokemonBackgroundColors(i); // comes after document.get... because style can only be manipulated AFTER container has been rendered 
-        getPokemonTypeColors(i); // see comment before
+        getPokemonBackgroundColors(i);
+        getPokemonTypeColors(i);
     }
 }
 
@@ -107,3 +116,23 @@ function getPokemonTypeColors(i) {
     firstPokemonType.style.backgroundColor = typeColor1;
     secondPokemonType.style.backgroundColor = typeColor2;
 }
+
+
+// load more pokemon at bottom of page
+let isLoading = false; // prevents multiple requests being sent
+
+async function loadMorePokemon() {
+    if (!isLoading) { // checks if theres a request that´s being sent already
+        if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) { // if at end of page
+            isLoading = true; // request is being sent (so no other requests can be sent now)
+            console.log('Ende der Seite');
+
+            pokemonThumbnailCount += 20;
+            await loadPokemon();
+
+            isLoading = false; // end of current request - new request can be sent from here
+        }
+    }
+}
+
+window.addEventListener('scroll', loadMorePokemon);

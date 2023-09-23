@@ -307,7 +307,10 @@
  }
 
  .evoContainer span {
-     color: black;
+     height: 24px;
+     color: white;
+     padding: 4px 16px;
+     border-radius: 24px;
      font-weight: 600;
  }
 
