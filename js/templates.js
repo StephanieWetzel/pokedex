@@ -1,16 +1,18 @@
 function pokemonThumbnail(i) {
     return /*html*/`
     <div onclick="openOverlay(${i})" class="pokemonCard" id="pokemonCard${i}">
-        <div class="spaceBetween marginTop8">
-            <h2 class="capitalLetters marginBlockStartEnd0">${pokemon['name']}</h2>
-            <span>#${pokemon['id'].toString().padStart(3, "0")}</span>
-        </div>
-        <div class="typesAndImageContainer">
-            <div class="typesContainer">
-                <span id="firstPokemonType${i}">${pokemonType1}</span>
-                <span id="secondPokemonType${i}">${pokemonType2}</span>
+        <div>
+            <div class="spaceBetween marginTop8">
+                <h2 class="capitalLetters marginBlockStartEnd0">${pokemon['name']}</h2>
+                <span>#${pokemon['id'].toString().padStart(3, "0")}</span>
             </div>
-            <div class="pokemonImageContainer"><img src="${pokemon['sprites']['other']['official-artwork']['front_default']}"></div>
+            <div class="typesAndImageContainer">
+                <div class="typesContainer">
+                    <span id="firstPokemonType${i}">${pokemonType1}</span>
+                    <span id="secondPokemonType${i}">${pokemonType2}</span>
+                </div>
+                <div class="pokemonImageContainer"><img src="${pokemon['sprites']['other']['official-artwork']['front_default']}"></div>
+            </div>
         </div>
     </div >
         `;

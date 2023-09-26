@@ -3,6 +3,9 @@ let loadedPokemon = [];
 let pokemon; // loadedPokemon[i];
 let pokemonType1;
 let pokemonType2;
+let isLoading = false; // prevents multiple requests being sent
+let isSearching = false;
+let searchQuery;
 
 const backgroundColors = {
     normal: '#A8A878',
@@ -54,7 +57,6 @@ async function loadPokemon() {
         await fetchCurrentPokemon(allPokemon['results'][i]['url']); // request for one pokemon
     }
     renderPokemonCards();
-    console.log(loadedPokemon);
 }
 
 
@@ -73,8 +75,7 @@ async function fetchCurrentPokemon(url) { // url aus Funktion 'loadPokemon() wir
 
 
 function renderPokemonCards() {
-    for (let i = 0; i < loadedPokemon.length; i++) {
-        i = i + pokemonThumbnailCount;
+    for (let i = pokemonThumbnailCount; i < loadedPokemon.length; i++) {
         pokemon = loadedPokemon[i];
         getPokemonTypes();
         document.getElementById('mainContent').innerHTML += pokemonThumbnail(i); // templates.js
@@ -118,21 +119,45 @@ function getPokemonTypeColors(i) {
 }
 
 
-// load more pokemon at bottom of page
-let isLoading = false; // prevents multiple requests being sent
-
+// ON SCROLL
 async function loadMorePokemon() {
-    if (!isLoading) { // checks if theres a request that´s being sent already
+    if (!isLoading && !isSearching) { // checks if a request is being sent already
         if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) { // if at end of page
-            isLoading = true; // request is being sent (so no other requests can be sent now)
-            console.log('Ende der Seite');
+            isLoading = true;
 
             pokemonThumbnailCount += 20;
             await loadPokemon();
 
-            isLoading = false; // end of current request - new request can be sent from here
+            isLoading = false;
         }
     }
 }
 
 window.addEventListener('scroll', loadMorePokemon);
+
+
+// FILTER
+function filterPokemon() {
+    isSearching = true;
+    isLoading = false;
+    searchQuery = document.getElementById('searchQuery').value.toLowerCase();
+
+    for (let i = 0; i < loadedPokemon.length; i++) {
+        let filteredPokemon = loadedPokemon[i].name.toLowerCase();
+        let pokemonCard = document.getElementById(`pokemonCard${i}`);
+
+        if (filteredPokemon.startsWith(searchQuery)) {
+            pokemonCard.style.display = 'flex';
+        } else {
+            pokemonCard.style.display = 'none';
+        }
+        isSearching = false;
+    }
+}
+
+
+function resetFilter() {
+    searchQuery = document.getElementById('searchQuery');
+    searchQuery.value = '';
+    filterPokemon();
+}
