@@ -1,5 +1,5 @@
 function pokemonThumbnail(i) {
-    return /*html*/`
+    return `
     <div onclick="openOverlay(${i})" class="pokemonCard" id="pokemonCard${i}">
         <div>
             <div class="spaceBetween marginTop8">
@@ -21,7 +21,7 @@ function pokemonThumbnail(i) {
 
 function pokemonOverlay(i) {
     backgroundColor = backgroundColors[pokemonType1];
-    return /*html*/`
+    return `
     <div onclick="doNotClose(event)" class="pokemonInfoCard" id="pokemonInfoCard${i}">
         <div class="padding2432">
             <div class="symbolsContainer">

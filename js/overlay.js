@@ -9,15 +9,19 @@ let pokemonStatsValues = [];
 
 
 async function renderOverlay(i) {
-    pokemon = loadedPokemon[i];// makes sure only one pokemon will be rendered
+    showSpinner();
+
+    pokemon = loadedPokemon[i];
     getPokemonTypes();
     getAbilities();
-    document.getElementById('overlay').innerHTML = pokemonOverlay(i);
+    document.getElementById('overlay').innerHTML = pokemonOverlay(i); // templates.js
     renderColors(i);
     getBaseStats();
     createChart(i);
     await getEvos(i);
     getMoves(i);
+
+    hideSpinner();
 }
 
 
@@ -27,14 +31,16 @@ function renderColors(i) {
     getInfoCardTypeColors(i);
 }
 
+
 function getInfoCardBackgroundColors(i) {
     getPokemonTypes(); // main.js
 
     let pokemonInfoCard = document.getElementById(`pokemonInfoCard${i}`);
-    backgroundColor = backgroundColors[pokemonType1]; // pokemonType1 == backgroundColors[i]
+    backgroundColor = backgroundColors[pokemonType1];
 
     pokemonInfoCard.style.backgroundColor = backgroundColor;
 }
+
 
 function getInfoCardTypeColors(i) {
     getPokemonTypes(); // main.js
@@ -67,17 +73,20 @@ function getAbilities() {
     }
 }
 
+
 function oneAbility(abilities) {
     firstAbility = abilities[0]['ability']['name'];
     secondAbility = '';
     thirdAbility = '';
 }
 
+
 function twoAbilities(abilities) {
     firstAbility = abilities[0]['ability']['name'] + ',';
     secondAbility = abilities[1]['ability']['name'];
     thirdAbility = '';
 }
+
 
 function threeAbilities(abilities) {
     firstAbility = abilities[0]['ability']['name'] + ',';
@@ -103,10 +112,15 @@ function getMoves(i) {
     let movesContainer = document.getElementById(`moves${i}`);
     let moves = pokemon['moves'];
     for (let i = 0; i < moves.length; i++) {
-        let move = moves[i]['move']['name'];
-        movesContainer.innerHTML += `
+        renderMoves(movesContainer, moves, i);
+    }
+}
+
+
+function renderMoves(movesContainer, moves, i) {
+    let move = moves[i]['move']['name'];
+    movesContainer.innerHTML += `
         <span id="move${i}">${move}</span>
         `
-        document.getElementById(`move${i}`).style.backgroundColor = typeColor1;
-    }
+    document.getElementById(`move${i}`).style.backgroundColor = typeColor1;
 }

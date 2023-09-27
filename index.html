@@ -6,12 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokédex</title>
     <link rel="icon" type="image/x-icon" href="/img/header_pokeball.png">
+    <link rel="stylesheet" href="spinner.css">
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="overlay.css">
     <link rel="stylesheet" href="fonts.css">
 </head>
 
 <body onload="loadPokemon()">
+    <div class="dNone lds-roller" id="spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
     <div class="rootDiv" id="mainDiv">
         <div onclick="closeOverlay()" class="overlayDiv dNone" id="overlay"></div>
         <div class="padding1640">

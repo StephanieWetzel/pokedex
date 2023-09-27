@@ -1,10 +1,16 @@
-function showAboutTab(i) { // templates.js
-    getPokemonTypes();
+// ABOUT
+function showAboutTab(i) {
+    getPokemonTypes(); // main.js
     backgroundColor = backgroundColors[pokemonType1];
 
     document.getElementById(`about${i}`).classList.remove('dNone');
     document.getElementById(`aboutTab${i}`).style.color = backgroundColor;
 
+    hideAllTabsButAbout(i);
+}
+
+
+function hideAllTabsButAbout(i) {
     document.getElementById(`baseStats${i}`).classList.add('dNone');
     document.getElementById(`baseStatsTab${i}`).style.color = '';
 
@@ -16,13 +22,19 @@ function showAboutTab(i) { // templates.js
 }
 
 
-function showBaseStatsTab(i) { // templates.js
-    getPokemonTypes();
+// BASE STATS
+function showBaseStatsTab(i) {
+    getPokemonTypes(); // main.js
     backgroundColor = backgroundColors[pokemonType1];
 
     document.getElementById(`baseStats${i}`).classList.remove('dNone');
     document.getElementById(`baseStatsTab${i}`).style.color = backgroundColor;
 
+    hideAllTabsButBaseStats(i);
+}
+
+
+function hideAllTabsButBaseStats(i) {
     document.getElementById(`about${i}`).classList.add('dNone');
     document.getElementById(`aboutTab${i}`).style.color = '';
 
@@ -34,13 +46,19 @@ function showBaseStatsTab(i) { // templates.js
 }
 
 
+// EVOLUTION
 function showEvolutionTab(i) {
-    getPokemonTypes();
+    getPokemonTypes(); // main.js
     backgroundColor = backgroundColors[pokemonType1];
 
     document.getElementById(`evolution${i}`).classList.remove('dNone');
     document.getElementById(`evolutionTab${i}`).style.color = backgroundColor;
 
+    hideAllTabsButEvolution(i)
+}
+
+
+function hideAllTabsButEvolution(i) {
     document.getElementById(`moves${i}`).classList.add('dNone');
     document.getElementById(`movesTab${i}`).style.color = '';
 
@@ -52,13 +70,19 @@ function showEvolutionTab(i) {
 }
 
 
-function showMovesTab(i) { // templates.js
-    getPokemonTypes();
+// MOVES
+function showMovesTab(i) {
+    getPokemonTypes(); // main.js
     backgroundColor = backgroundColors[pokemonType1];
 
     document.getElementById(`moves${i}`).classList.remove('dNone');
     document.getElementById(`movesTab${i}`).style.color = backgroundColor;
 
+    hideAllTabsButMoves(i)
+}
+
+
+function hideAllTabsButMoves(i) {
     document.getElementById(`baseStats${i}`).classList.add('dNone');
     document.getElementById(`baseStatsTab${i}`).style.color = '';
 
@@ -70,10 +94,10 @@ function showMovesTab(i) { // templates.js
 }
 
 
-// overlay
+// OPEN/CLOSE
 async function openOverlay(i) {
     await renderOverlay(i);
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden'; // scrollbar hidden
     document.getElementById('mainContent').classList.add('dNone');
     document.getElementById('overlay').classList.remove('dNone');
     renderButtons(i);
@@ -81,8 +105,8 @@ async function openOverlay(i) {
 
 
 function closeOverlay() {
-    document.body.style.overflow = '';
-    pokemonStatsNames = []; // prevents stats from being multiplied (reloads stats every time openOverlay(i) is executed)
+    document.body.style.overflow = ''; // scrollbar visible
+    pokemonStatsNames = []; // prevents stats from being multiplied with every click
     pokemonStatsValues = [];
     document.getElementById('overlay').classList.add('dNone');
     document.getElementById('mainContent').classList.remove('dNone');
@@ -94,16 +118,16 @@ function doNotClose(event) { // prevents overlay from closing when clicking in i
 }
 
 
-// next/previous
+// NEXT/PREVIOUS
 function showNextCard(i) {
-    pokemonStatsNames = []; // prevents stats from being multiplied (reloads stats every time openOverlay(i) is executed)
+    pokemonStatsNames = [];
     pokemonStatsValues = [];
     openOverlay(i + 1);
 }
 
 
 function showPreviousCard(i) {
-    pokemonStatsNames = []; // prevents stats from being multiplied (reloads stats every time openOverlay(i) is executed)
+    pokemonStatsNames = [];
     pokemonStatsValues = [];
     openOverlay(i - 1);
 }
@@ -120,7 +144,7 @@ function renderButtons(i) {
 }
 
 
-// like-button
+// LIKE-BUTTON
 function toggleHeart() {
     document.getElementById('heart').classList.toggle('dNone');
     document.getElementById('filledHeart').classList.toggle('dNone');

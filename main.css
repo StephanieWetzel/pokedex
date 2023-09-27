@@ -62,7 +62,7 @@
      background-color: #E74040;
  }
 
- /* scrollbar - START */
+ /* SCROLLBAR */
  ::-webkit-scrollbar {
      width: 20px;
      cursor: pointer;
@@ -79,10 +79,7 @@
      background-size: contain;
  }
 
- /* scrollbar - END */
-
-
- /* mainContent - START */
+ /* MAIN-CONTENT */
  .rootDiv {
      position: relative;
      height: 100%;
@@ -96,8 +93,8 @@
      position: fixed;
      height: 100%;
      width: 100%;
-     z-index: 999;
-     background-color: rgba(0, 0, 0, 0.8);
+     z-index: 990;
+     background-color: rgba(0, 0, 0, 0.5);
  }
 
  #mainContent {
@@ -156,9 +153,8 @@
      filter: drop-shadow(2px 4px 6px black);
  }
 
- /* mainContent - END */
 
- /* generic classes: */
+ /* GENERIC */
  .padding1640 {
      padding: 16px 40px;
  }
@@ -197,11 +193,6 @@
      margin-top: 8px;
  }
 
- /* 
- .dNone {
-     display: none;
- } */
-
  .marginBlockStartEnd0 {
      margin-block-start: 0;
      margin-block-end: 0;
@@ -212,7 +203,7 @@
  }
 
 
- /* media queries */
+ /* MEDIA QUERIES */
  @media ((min-width: 400px) and (max-width: 650px)) {
      .headerContainer {
          flex-direction: column;

@@ -1,9 +1,9 @@
 let allPokemon; // Array - only pokemon names
 let loadedPokemon = [];
-let pokemon; // loadedPokemon[i];
+let pokemon;
 let pokemonType1;
 let pokemonType2;
-let isLoading = false; // prevents multiple requests being sent
+let isLoading = false;
 let isSearching = false;
 let searchQuery;
 
@@ -52,11 +52,13 @@ let pokemonThumbnailCount = 0;
 
 
 async function loadPokemon() {
+    showSpinner();
     await fetchAllPokemon();
     for (let i = 0; i < allPokemon['results'].length; i++) {
         await fetchCurrentPokemon(allPokemon['results'][i]['url']); // request for one pokemon
     }
     renderPokemonCards();
+    hideSpinner();
 }
 
 
@@ -67,7 +69,7 @@ async function fetchAllPokemon() {
 }
 
 
-async function fetchCurrentPokemon(url) { // url aus Funktion 'loadPokemon() wird eingesetzt
+async function fetchCurrentPokemon(url) { // see loadPokemon()
     let response = await fetch(url);
     pokemon = await response.json();
     loadedPokemon.push(pokemon);
@@ -119,21 +121,30 @@ function getPokemonTypeColors(i) {
 }
 
 
-// ON SCROLL
+// AT END OF PAGE
+window.addEventListener('scroll', loadMorePokemon);
+
+
 async function loadMorePokemon() {
     if (!isLoading && !isSearching) { // checks if a request is being sent already
-        if ((window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight) { // if at end of page
-            isLoading = true;
-
-            pokemonThumbnailCount += 20;
-            await loadPokemon();
-
-            isLoading = false;
-        }
+        await loadNext20Pokemon();
     }
 }
 
-window.addEventListener('scroll', loadMorePokemon);
+
+async function loadNext20Pokemon() {
+    if (endOfPage()) {
+        showSpinner();
+        pokemonThumbnailCount += 20;
+        await loadPokemon();
+        hideSpinner();
+    }
+}
+
+
+function endOfPage() {
+    return (window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight;
+}
 
 
 // FILTER
@@ -143,15 +154,20 @@ function filterPokemon() {
     searchQuery = document.getElementById('searchQuery').value.toLowerCase();
 
     for (let i = 0; i < loadedPokemon.length; i++) {
-        let filteredPokemon = loadedPokemon[i].name.toLowerCase();
-        let pokemonCard = document.getElementById(`pokemonCard${i}`);
-
-        if (filteredPokemon.startsWith(searchQuery)) {
-            pokemonCard.style.display = 'flex';
-        } else {
-            pokemonCard.style.display = 'none';
-        }
+        applyFilter(i);
         isSearching = false;
+    }
+}
+
+
+function applyFilter(i) {
+    let filteredPokemon = loadedPokemon[i].name.toLowerCase();
+    let pokemonCard = document.getElementById(`pokemonCard${i}`);
+
+    if (filteredPokemon.startsWith(searchQuery)) {
+        pokemonCard.style.display = 'block';
+    } else {
+        pokemonCard.style.display = 'none';
     }
 }
 
@@ -160,4 +176,19 @@ function resetFilter() {
     searchQuery = document.getElementById('searchQuery');
     searchQuery.value = '';
     filterPokemon();
+}
+
+
+// SPINNER
+function showSpinner() {
+    isLoading = true;
+    document.getElementById('spinner').classList.remove('dNone');
+    document.body.style.overflow = 'hidden';
+}
+
+
+function hideSpinner() {
+    isLoading = false;
+    document.getElementById('spinner').classList.add('dNone');
+    document.body.style.overflow = '';
 }

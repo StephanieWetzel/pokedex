@@ -156,7 +156,7 @@
  }
 
 
- /* media queries */
+ /* MEDIA QUERIES */
  @media ((min-width: 400px) and (max-width: 650px)) {
      .pokemonInfoCard {
          width: 384px;
