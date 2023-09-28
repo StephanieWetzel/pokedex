@@ -1,6 +1,6 @@
 let species;
 let allFormerPokemon = [];
-let formerPokemon; // allFormerPokemon[i];
+let formerPokemon; // current Pokemon
 let nextSpeciesPath;
 let evoTOContainer;
 let allFirstEvoPokemon = [];
@@ -21,7 +21,7 @@ async function fetchSpeciesForEvo() {
 }
 
 
-// FORMER pokemon
+// FORMER POKEMON
 async function renderFormerPokemon(i) {
     let formerSpeciesPath = species['evolves_from_species'];
     if (formerSpeciesPath) {
@@ -58,24 +58,23 @@ function renderFormerPokemonImg(i, evoOFContainer) {
 }
 
 
-// NEXT pokemon
+// NEXT POKEMON
 async function renderNextPokemon(i) {
     await fetchSpeciesEvoChain();
     evoTOContainer = document.getElementById(`evoTO${i}`);
 
     let pokemonBaseForm = pokemon['name'] == nextSpeciesPath['species']['name'];
     if (pokemonBaseForm) {
-        if (nextSpeciesPath['evolves_to'] == '') { // if pokemon has no evolution - hide tab
-            document.getElementById(`evolutionTab${i}`).classList.add('dNone');
+        if (noEvo()) {
+            hideEvoTab(i);
             return;
         }
         await renderFirstEvoPokemon();
     }
-
     let pokemonSecondForm = pokemon['name'] == nextSpeciesPath['evolves_to'][0]['species']['name'];
     if (pokemonSecondForm) {
-        if (nextSpeciesPath['evolves_to'][0]['evolves_to'] == '') {
-            return; // if pokemon has only one evolution
+        if (noSecondEvo()) {
+            return;
         }
         await renderSecondEvoPokemon();
     }
@@ -91,6 +90,16 @@ async function fetchSpeciesEvoChain() {
 
 
 // first evolution
+function noEvo() {
+    return nextSpeciesPath['evolves_to'] == '';
+}
+
+
+function hideEvoTab(i) {
+    document.getElementById(`evolutionTab${i}`).classList.add('dNone');
+}
+
+
 async function renderFirstEvoPokemon() {
     await fetchFirstEvoPokemon();
     for (let i = 0; i < allFirstEvoPokemon.length; i++) {
@@ -122,6 +131,11 @@ function renderFirstEvoPokemonImg(i) {
 
 
 // second evolution
+function noSecondEvo() {
+    return nextSpeciesPath['evolves_to'][0]['evolves_to'] == '';
+}
+
+
 async function renderSecondEvoPokemon() {
     await fetchSecondEvoPokemon();
     for (let i = 0; i < allSecondEvoPokemon.length; i++) {
@@ -149,4 +163,9 @@ function renderSecondEvoPokemonImg(i) {
             <img class="evolutionImg" src="${secondEvoPokemon['sprites']['other']['official-artwork']['front_default']}"></img>
             `;
     document.getElementById(`secondEvoTo${i}`).style.color = backgroundColor;
+}
+
+
+function finalEvo(i) {
+    document.getElementById(`evoTO${i}`).classList.add('dNone');
 }

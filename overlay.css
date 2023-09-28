@@ -31,7 +31,6 @@
      display: flex;
      justify-content: center;
      margin-top: -200px;
-     margin-bottom: 8px;
  }
 
  .InfoImageContainer img {
@@ -43,7 +42,6 @@
      display: flex;
      align-items: center;
      justify-content: space-evenly;
-     margin-bottom: 8px;
  }
 
  .statsHeader span {
@@ -127,10 +125,9 @@
 
  .evoContainer {
      display: flex;
-     flex-direction: column;
      align-items: center;
+     justify-content: center;
      margin: 32px 0 24px 0;
-     gap: 16px;
  }
 
  .evoContainer div {
@@ -142,7 +139,7 @@
  .evoContainer span {
      height: 24px;
      color: white;
-     padding: 4px 16px;
+     margin-bottom: 8px;
      border-radius: 24px;
      font-weight: 600;
  }
@@ -161,11 +158,27 @@
      .pokemonInfoCard {
          width: 384px;
      }
+
+     .infoContainer {
+         margin-top: 104px;
+     }
+
+     .InfoImageContainer {
+         margin-top: -176px;
+     }
+
+     .InfoImageContainer img {
+         width: 200px;
+     }
+
+     .evoContainer {
+         margin: 24px 8px 16px 16px;
+     }
  }
 
  @media(max-width: 400px) {
      .pokemonInfoCard {
-         width: 304px;
+         width: 288px;
      }
 
      .symbolsContainer {
@@ -173,23 +186,51 @@
      }
 
      .InfoImageContainer {
-         margin-top: -152px;
-         margin-bottom: 16px;
+         margin-top: -144px;
+         margin-bottom: 4px;
      }
 
      .InfoImageContainer img {
-         width: 192px;
+         width: 168px;
      }
 
      .statsHeader span {
-         font-size: 18px;
+         font-size: 16px;
      }
 
      .leftRightContainer {
-         margin-top: 24px;
+         margin-top: 0;
      }
 
      .statsContent {
          gap: 40px;
+     }
+
+     .evoContainer {
+         margin: 24px 8px 16px 16px;
+     }
+
+     .evoContainer span {
+         font-size: 18px;
+     }
+
+     .evolutionImg {
+         width: 120px;
+     }
+
+     .movesContainer {
+         max-height: 176px;
+     }
+
+     .padding32 {
+         padding: 16px;
+     }
+
+     #previous {
+         top: 48px;
+     }
+
+     #next {
+         top: 48px;
      }
  }

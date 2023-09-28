@@ -126,14 +126,14 @@ window.addEventListener('scroll', loadMorePokemon);
 
 
 async function loadMorePokemon() {
-    if (!isLoading && !isSearching) { // checks if a request is being sent already
+    if (!isLoading && !isSearching) { // if no other request is being sent
         await loadNext20Pokemon();
     }
 }
 
 
 async function loadNext20Pokemon() {
-    if (endOfPage()) {
+    if (endOfPage() && !isLoading && !isSearching) {
         showSpinner();
         pokemonThumbnailCount += 20;
         await loadPokemon();
@@ -165,7 +165,7 @@ function applyFilter(i) {
     let pokemonCard = document.getElementById(`pokemonCard${i}`);
 
     if (filteredPokemon.startsWith(searchQuery)) {
-        pokemonCard.style.display = 'block';
+        pokemonCard.style.display = '';
     } else {
         pokemonCard.style.display = 'none';
     }

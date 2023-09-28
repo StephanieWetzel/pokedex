@@ -42,7 +42,7 @@ function pokemonOverlay(i) {
             </div>
         </div>
 
-        <div class="leftRightContainer">
+        <div class="leftRightContainer" id="leftRightContainer">
             <img id="previous" onclick="showPreviousCard(${i})" class="width32" src="./img/left.png">
             <img id="next" onclick="showNextCard(${i})" class="width32" src="./img/right.png">
         </div>
