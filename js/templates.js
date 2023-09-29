@@ -42,13 +42,13 @@ function pokemonOverlay(i) {
             </div>
         </div>
 
-        <div class="leftRightContainer" id="leftRightContainer">
+        <div class="leftRightContainer">
             <img id="previous" onclick="showPreviousCard(${i})" class="width32" src="./img/left.png">
             <img id="next" onclick="showNextCard(${i})" class="width32" src="./img/right.png">
         </div>
 
         <div class="infoContainer">
-            <div class="InfoImageContainer"><img src="${pokemon['sprites']['other']['official-artwork']['front_default']}"></div>
+            <div id="infoImageContainer" class="InfoImageContainer"><img src="${pokemon['sprites']['other']['official-artwork']['front_default']}"></div>
             <div class="statsHeader">
                 <span class="aboutTab" id="aboutTab${i}" onclick="showAboutTab(${i})" style="color: ${backgroundColor};">
                 About</span>

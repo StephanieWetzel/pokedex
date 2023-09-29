@@ -142,7 +142,8 @@ async function openOverlay(i) {
     renderButtons(i);
 
     if (pokemonIsFiltered()) {
-        document.getElementById('leftRightContainer').classList.add('dNone');
+        document.getElementById('previous').classList.add('dNone');
+        document.getElementById('next').classList.add('dNone');
         loadMoreBtn.classList.add('dNone');
     }
 }
