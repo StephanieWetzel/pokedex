@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokédex</title>
-    <link rel="icon" type="image/x-icon" href="/img/header_pokeball.png">
+    <link rel="icon" type="image/x-icon" href="./img/header_pokeball.png">
     <link rel="stylesheet" href="spinner.css">
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="overlay.css">
@@ -27,20 +27,24 @@
     </div>
     <div class="rootDiv" id="mainDiv">
         <div onclick="closeOverlay()" class="overlayDiv dNone" id="overlay"></div>
-        <div class="padding1640">
-            <div class="headerContainer">
-                <div class="header">
-                    <h1>Pokédex</h1>
-                    <img src="./img/header_pokeball.png">
-                </div>
-                <div class="inputFieldContainer">
-                    <input oninput="filterPokemon()" id="searchQuery" class="inputField" type="text"
-                        placeholder="Catch (name)...">
-                    <button onclick="resetFilter()" class="myBtn">Reset</button>
-                </div>
-            </div>
 
-            <div id="mainContent"></div>
+        <div class="headerContainer">
+            <div class="header">
+                <h1>Pokédex</h1>
+                <img src="./img/header_pokeball.png">
+            </div>
+            <div class="inputFieldContainer">
+                <input oninput="filterPokemon()" id="searchQuery" class="inputField" type="text"
+                    placeholder="Catch (name)...">
+                <button onclick="resetFilter()" class="myBtn">Reset</button>
+            </div>
+        </div>
+
+        <div id="mainContent">
+        </div>
+
+        <div class="buttonContainer">
+            <button id="loadMoreBtn" onclick="loadMorePokemon()" class="myBtn loadMoreBtn">Load More</button>
         </div>
     </div>
 </body>

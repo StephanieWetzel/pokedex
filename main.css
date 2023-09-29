@@ -13,7 +13,7 @@
      display: flex;
      justify-content: space-between;
      align-items: center;
-     padding: 16px;
+     padding: 24px 64px 8px 64px;
  }
 
  .header {
@@ -85,6 +85,7 @@
      position: relative;
      height: 100%;
      width: 100%;
+     margin-bottom: 24px;
  }
 
  .overlayDiv {
@@ -102,13 +103,12 @@
      display: flex;
      justify-content: center;
      flex-wrap: wrap;
-     margin-bottom: 24px;
  }
 
  .pokemonCard {
-     width: 320px;
-     margin: 16px;
-     padding: 16px 32px;
+     width: 288px;
+     margin: 8px;
+     padding: 16px 26px;
      border-radius: 32px;
      color: white;
      border: solid;
@@ -117,17 +117,16 @@
 
  .pokemonCard:hover {
      cursor: pointer;
-     transform: scale(1.2) rotate(-5deg);
-     transition: 600ms;
      opacity: 1;
      position: relative;
      z-index: 9;
+     filter: drop-shadow(2px 4px 6px black);
  }
 
  .typesAndImageContainer {
      display: flex;
      margin-top: 80px;
-     gap: 24px;
+     gap: 16px;
  }
 
  .typesContainer {
@@ -150,16 +149,28 @@
  }
 
  .pokemonImageContainer img {
-     width: 200px;
+     width: 184px;
      filter: drop-shadow(2px 4px 6px black);
+ }
+
+ .pokemonImageContainer img:hover {
+     transform: scale(1.2);
+     transition: 600ms;
+ }
+
+ .buttonContainer {
+     display: flex;
+     justify-content: center;
+     margin: 56px 0;
+ }
+
+ .loadMoreBtn {
+     font-size: 24px;
+     height: 48px;
  }
 
 
  /* GENERIC */
- .padding1640 {
-     padding: 16px 40px;
- }
-
  .capitalLetters {
      text-transform: capitalize;
  }
@@ -218,20 +229,12 @@
          width: 264px;
      }
 
-     .pokemonCard:hover {
-         transform: scale(1.1);
-     }
-
      .typesAndImageContainer {
          gap: 0;
      }
 
      .pokemonImageContainer {
          margin-right: 0;
-     }
-
-     .pokemonImageContainer img {
-         width: 192px;
      }
  }
 
@@ -247,16 +250,12 @@
          font-size: 25px;
      }
 
-     .pokemonCard:hover {
-         transform: scale(1.1);
-     }
-
      .pokemonImageContainer {
          margin-top: -48px;
      }
 
      .pokemonImageContainer img {
-         width: 104px;
+         width: 120px;
      }
 
      .spaceBetween {

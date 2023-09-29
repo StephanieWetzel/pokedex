@@ -5,7 +5,6 @@ let pokemonType1;
 let pokemonType2;
 let isLoading = false;
 let isSearching = false;
-let searchQuery;
 
 const backgroundColors = {
     normal: '#A8A878',
@@ -63,7 +62,7 @@ async function loadPokemon() {
 
 
 async function fetchAllPokemon() {
-    let url = `https://pokeapi.co/api/v2/pokemon/?offset=${pokemonThumbnailCount}&limit=20`
+    let url = `https://pokeapi.co/api/v2/pokemon/?offset=${pokemonThumbnailCount}&limit=30`
     let response = await fetch(url);
     allPokemon = await response.json();
 }
@@ -121,50 +120,51 @@ function getPokemonTypeColors(i) {
 }
 
 
-// AT END OF PAGE
-window.addEventListener('scroll', loadMorePokemon);
-
-
+// LOAD MORE
 async function loadMorePokemon() {
     if (!isLoading && !isSearching) { // if no other request is being sent
-        await loadNext20Pokemon();
+        await loadNext30Pokemon();
     }
 }
 
 
-async function loadNext20Pokemon() {
-    if (endOfPage() && !isLoading && !isSearching) {
+async function loadNext30Pokemon() {
+    if (!isLoading && !isSearching) {
         showSpinner();
-        pokemonThumbnailCount += 20;
+        pokemonThumbnailCount += 30;
         await loadPokemon();
         hideSpinner();
     }
 }
 
 
-function endOfPage() {
-    return (window.innerHeight + Math.round(window.scrollY)) >= document.body.offsetHeight;
-}
-
-
 // FILTER
+let searchQuery = document.getElementById('searchQuery');
+let loadMoreBtn = document.getElementById('loadMoreBtn');
+
+
 function filterPokemon() {
     isSearching = true;
     isLoading = false;
-    searchQuery = document.getElementById('searchQuery').value.toLowerCase();
 
     for (let i = 0; i < loadedPokemon.length; i++) {
         applyFilter(i);
         isSearching = false;
     }
+
+    if (searchQuery.value === '') {
+        loadMoreBtn.classList.remove('dNone');
+    }
 }
 
 
 function applyFilter(i) {
+    loadMoreBtn.classList.add('dNone');
+
     let filteredPokemon = loadedPokemon[i].name.toLowerCase();
     let pokemonCard = document.getElementById(`pokemonCard${i}`);
 
-    if (filteredPokemon.startsWith(searchQuery)) {
+    if (filteredPokemon.startsWith(searchQuery.value.toLowerCase())) {
         pokemonCard.style.display = '';
     } else {
         pokemonCard.style.display = 'none';
@@ -173,22 +173,26 @@ function applyFilter(i) {
 
 
 function resetFilter() {
-    searchQuery = document.getElementById('searchQuery');
     searchQuery.value = '';
     filterPokemon();
 }
 
 
 // SPINNER
+let spinner = document.getElementById('spinner');
+
+
 function showSpinner() {
     isLoading = true;
-    document.getElementById('spinner').classList.remove('dNone');
+    loadMoreBtn.classList.add('dNone');
+    spinner.classList.remove('dNone');
     document.body.style.overflow = 'hidden';
 }
 
 
 function hideSpinner() {
     isLoading = false;
-    document.getElementById('spinner').classList.add('dNone');
+    loadMoreBtn.classList.remove('dNone');
+    spinner.classList.add('dNone');
     document.body.style.overflow = '';
 }

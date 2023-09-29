@@ -1,96 +1,135 @@
-// ABOUT
-function showAboutTab(i) {
+let aboutInfo;
+let aboutTab;
+let baseStatsInfo;
+let baseStatsTab;
+let evoInfo;
+let evoTab;
+let movesInfo;
+let movesTab;
+
+
+function getBackgroundColor() {
     getPokemonTypes(); // main.js
     backgroundColor = backgroundColors[pokemonType1];
+}
 
-    document.getElementById(`about${i}`).classList.remove('dNone');
-    document.getElementById(`aboutTab${i}`).style.color = backgroundColor;
+
+function getParameters(i) {
+    aboutInfo = document.getElementById(`about${i}`);
+    aboutTab = document.getElementById(`aboutTab${i}`);
+
+    baseStatsInfo = document.getElementById(`baseStats${i}`);
+    baseStatsTab = document.getElementById(`baseStatsTab${i}`);
+
+    evoInfo = document.getElementById(`evolution${i}`);
+    evoTab = document.getElementById(`evolutionTab${i}`);
+
+    movesInfo = document.getElementById(`moves${i}`);
+    movesTab = document.getElementById(`movesTab${i}`);
+}
+
+
+// ABOUT
+function showAboutTab(i) {
+    getBackgroundColor();
+    getParameters(i);
+
+    aboutInfo.classList.remove('dNone');
+    aboutTab.style.color = backgroundColor;
 
     hideAllTabsButAbout(i);
 }
 
 
 function hideAllTabsButAbout(i) {
-    document.getElementById(`baseStats${i}`).classList.add('dNone');
-    document.getElementById(`baseStatsTab${i}`).style.color = '';
+    getParameters(i);
 
-    document.getElementById(`moves${i}`).classList.add('dNone');
-    document.getElementById(`movesTab${i}`).style.color = '';
+    baseStatsInfo.classList.add('dNone');
+    baseStatsTab.style.color = '';
 
-    document.getElementById(`evolution${i}`).classList.add('dNone');
-    document.getElementById(`evolutionTab${i}`).style.color = '';
+    movesInfo.classList.add('dNone');
+    movesTab.style.color = '';
+
+    evoInfo.classList.add('dNone');
+    evoTab.style.color = '';
 }
 
 
 // BASE STATS
 function showBaseStatsTab(i) {
-    getPokemonTypes(); // main.js
-    backgroundColor = backgroundColors[pokemonType1];
+    getBackgroundColor();
+    getParameters(i);
 
-    document.getElementById(`baseStats${i}`).classList.remove('dNone');
-    document.getElementById(`baseStatsTab${i}`).style.color = backgroundColor;
+    baseStatsInfo.classList.remove('dNone');
+    baseStatsTab.style.color = backgroundColor;
 
     hideAllTabsButBaseStats(i);
 }
 
 
 function hideAllTabsButBaseStats(i) {
-    document.getElementById(`about${i}`).classList.add('dNone');
-    document.getElementById(`aboutTab${i}`).style.color = '';
+    getParameters(i);
 
-    document.getElementById(`moves${i}`).classList.add('dNone');
-    document.getElementById(`movesTab${i}`).style.color = '';
+    aboutInfo.classList.add('dNone');
+    aboutTab.style.color = '';
 
-    document.getElementById(`evolution${i}`).classList.add('dNone');
-    document.getElementById(`evolutionTab${i}`).style.color = '';
+    movesInfo.classList.add('dNone');
+    movesTab.style.color = '';
+
+    evoInfo.classList.add('dNone');
+    evoTab.style.color = '';
 }
 
 
 // EVOLUTION
 function showEvolutionTab(i) {
-    getPokemonTypes(); // main.js
-    backgroundColor = backgroundColors[pokemonType1];
+    getBackgroundColor();
+    getParameters(i);
 
-    document.getElementById(`evolution${i}`).classList.remove('dNone');
-    document.getElementById(`evolutionTab${i}`).style.color = backgroundColor;
+    evoInfo.classList.remove('dNone');
+    evoTab.style.color = backgroundColor;
 
     hideAllTabsButEvolution(i)
 }
 
 
 function hideAllTabsButEvolution(i) {
-    document.getElementById(`moves${i}`).classList.add('dNone');
-    document.getElementById(`movesTab${i}`).style.color = '';
+    getParameters(i);
 
-    document.getElementById(`baseStats${i}`).classList.add('dNone');
-    document.getElementById(`baseStatsTab${i}`).style.color = '';
+    movesInfo.classList.add('dNone');
+    movesTab.style.color = '';
 
-    document.getElementById(`about${i}`).classList.add('dNone');
-    document.getElementById(`aboutTab${i}`).style.color = '';
+    baseStatsInfo.classList.add('dNone');
+    baseStatsTab.style.color = '';
+
+    aboutInfo.classList.add('dNone');
+    aboutTab.style.color = '';
 }
 
 
 // MOVES
 function showMovesTab(i) {
-    getPokemonTypes(); // main.js
-    backgroundColor = backgroundColors[pokemonType1];
+    getBackgroundColor();
+    getParameters(i);
 
-    document.getElementById(`moves${i}`).classList.remove('dNone');
-    document.getElementById(`movesTab${i}`).style.color = backgroundColor;
+    movesInfo.classList.remove('dNone');
+    movesTab.style.color = backgroundColor;
 
     hideAllTabsButMoves(i)
 }
 
 
 function hideAllTabsButMoves(i) {
-    document.getElementById(`baseStats${i}`).classList.add('dNone');
-    document.getElementById(`baseStatsTab${i}`).style.color = '';
+    getParameters(i);
 
-    document.getElementById(`about${i}`).classList.add('dNone');
-    document.getElementById(`aboutTab${i}`).style.color = '';
+    baseStatsInfo.classList.add('dNone');
+    baseStatsTab.style.color = '';
 
-    document.getElementById(`evolution${i}`).classList.add('dNone');
-    document.getElementById(`evolutionTab${i}`).style.color = '';
+    aboutInfo.classList.add('dNone');
+    aboutTab.style.color = '';
+
+    evoInfo.classList.add('dNone');
+    evoTab.style.color = '';
 }
 
 
@@ -101,6 +140,11 @@ async function openOverlay(i) {
     document.getElementById('mainContent').classList.add('dNone');
     document.getElementById('overlay').classList.remove('dNone');
     renderButtons(i);
+
+    if (pokemonIsFiltered()) {
+        document.getElementById('leftRightContainer').classList.add('dNone');
+        loadMoreBtn.classList.add('dNone');
+    }
 }
 
 
@@ -110,6 +154,15 @@ function closeOverlay() {
     pokemonStatsValues = [];
     document.getElementById('overlay').classList.add('dNone');
     document.getElementById('mainContent').classList.remove('dNone');
+
+    if (pokemonIsFiltered()) {
+        loadMoreBtn.classList.add('dNone');
+    }
+}
+
+
+function pokemonIsFiltered() {
+    return searchQuery.value != '';
 }
 
 
